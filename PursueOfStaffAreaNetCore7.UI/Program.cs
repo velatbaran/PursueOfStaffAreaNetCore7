@@ -1,7 +1,21 @@
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using PursueOfStaffAreaNetCore7.DataAccessLayer.DataContext;
+using System.Reflection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+builder.Services.AddDbContext<DatabaseContext>(opts =>
+{
+    opts.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection"), opts =>
+    {
+        opts.MigrationsAssembly(Assembly.GetAssembly(typeof(DatabaseContext)).GetName().Name);
+    });
+});
+
+
 
 var app = builder.Build();
 
