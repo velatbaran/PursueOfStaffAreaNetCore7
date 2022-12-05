@@ -1,12 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PursueOfStaffAreaNetCore7.BusinnessLayer.Abstract;
 using PursueOfStaffAreaNetCore7.DataAccessLayer.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PursueOfStaffAreaNetCore7.BusinnessLayer.Concrete
 {

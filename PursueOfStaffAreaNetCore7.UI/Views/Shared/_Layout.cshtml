@@ -20,6 +20,7 @@
     <!-- Vendor CSS Files -->
     <link href="~/web/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="~/toastr.js/toastr.css" rel="stylesheet" />
     <link href="~/web/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
     <link href="~/web/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
     <link href="~/web/assets/vendor/quill/quill.snow.css" rel="stylesheet">
@@ -30,6 +31,7 @@
     <!-- Template Main CSS File -->
     <link href="~/web/assets/css/style.css" rel="stylesheet">
 <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/css/validation-summary-errors.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -69,6 +71,7 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
+                        <script src="~/toastr.js/toastr.min.js"></script>
                         <li>
                             <a class="dropdown-item d-flex align-items-center" href="#">
                                 <i class="bi bi-box-arrow-right"></i>
@@ -93,22 +96,90 @@
             </li><!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#" title="Staff">
+                <a class="nav-link collapsed" data-bs-target="#staff-nav" data-bs-toggle="collapse" href="#" title="Staff">
                     <i class="fa-solid fa-user me-2"></i><span>Staff</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <ul id="staff-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
                         <a asp-controller="Staff" asp-action="List" title="Staffs">
-                           <i class="fa-solid fa-users me-2"></i><span>Staffs</span>
+                            <i class="fa-solid fa-list me-2"></i><span>List Staffs</span>
                         </a>
                     </li>
                     <li>
-                        <a asp-controller="Staff" asp-action="Create" title="Add Staff">
-                             <i class="fa-solid fa-user-plus me-2"></i><span>Add Staff</span>
+                        <a asp-controller="Staff" asp-action="Add" title="Add Staff">
+                             <i class="fa-solid fa-plus me-2"></i><span>Add Staff</span>
                         </a>
                     </li>
                 </ul>
             </li><!-- End Staff Nav -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#allowtype-nav" data-bs-toggle="collapse" href="#" title="Staff">
+                    <i class="fa-brands fa-slack me-2"></i><span>AllowType</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="allowtype-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a asp-controller="AllowType" asp-action="List" title="List AllowTypes">
+                           <i class="fa-solid fa-list me-2"></i><span>List AllowTypes</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="AllowType" asp-action="Add" title="Add AllowType">
+                             <i class="fa-solid fa-plus me-2"></i><span>Add AllowType</span>
+                        </a>
+                    </li>
+                </ul>
+           </li><!-- End AllowType Nav -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#department-nav" data-bs-toggle="collapse" href="#" title="Department">
+                    <i class="fa-solid fa-building-user me-2"></i><span>Department</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="department-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a asp-controller="Department" asp-action="List" title="List AllowTypes">
+                            <i class="fa-solid fa-list me-2"></i><span>List Departments</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Department" asp-action="Add" title="Add AllowType">
+                            <i class="fa-solid fa-plus me-2"></i><span>Add Department</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Department Nav -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#profession-nav" data-bs-toggle="collapse" href="#" title="Profession">
+                    <i class="fa-solid fa-school me-2"></i><span>Profession</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="profession-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a asp-controller="Profession" asp-action="List" title="List Professions">
+                            <i class="fa-solid fa-list me-2"></i><span>List Professions</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Profession" asp-action="Add" title="Add Profession">
+                            <i class="fa-solid fa-plus me-2"></i><span>Add Profession</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Profession Nav -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#duty-nav" data-bs-toggle="collapse" href="#" title="Duty">
+                    <i class="fa-solid fa-signature me-2"></i><span>Duty</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="duty-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a asp-controller="Duty" asp-action="List" title="List Dutys">
+                            <i class="fa-solid fa-list me-2"></i><span>List Dutys</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Duty" asp-action="Add" title="Add Duty">
+                            <i class="fa-solid fa-plus me-2"></i><span>Add Duty</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Duty Nav -->
 
             <li class="nav-heading">Account</li>
 
@@ -157,9 +228,11 @@
     <script src="~/web/assets/vendor/simple-datatables/simple-datatables.js"></script>
     <script src="~/web/assets/vendor/tinymce/tinymce.min.js"></script>
     <script src="~/web/assets/vendor/php-email-form/validate.js"></script>
-
+    <script src="~/toastr.js/toastr.min.js"></script>
     <!-- Template Main JS File -->
     <script src="~/web/assets/js/main.js"></script>
+
+    @RenderSection("scripts",required:false);
 
 </body>
 

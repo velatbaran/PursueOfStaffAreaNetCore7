@@ -1,5 +1,4 @@
-﻿using PursueOfStaffAreaNetCore7.Core.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -70,14 +69,17 @@ namespace PursueOfStaffAreaNetCore7.EntityLayer.Entities
         [DisplayName("Is Duty Assigned?")]
         public bool IsDutyAssigned { get; set; } = false;
 
+        public int DepartmentId { get; set; }
+        public virtual Department Department { get; set; }
+
         public int EducationId { get; set; }
         public virtual EducationState EducationState { get; set; }
 
+        public int ProfessionId { get; set; }
+        public virtual Profession Profession { get; set; }
+
         public int DutyId { get; set; }
         public virtual Duty Duty { get; set; }
-
-        public int DepartmentId { get; set; }
-        public virtual Department Department { get; set; }
 
         public virtual List<Area> Areas { get; set; }
         public virtual List<DutyAssign> DutyAssigns { get; set; }

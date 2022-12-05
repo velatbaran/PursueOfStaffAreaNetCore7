@@ -1,5 +1,11 @@
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using PursueOfStaffAreaNetCore7.BusinnessLayer.Abstract;
+using PursueOfStaffAreaNetCore7.BusinnessLayer.Concrete;
+using PursueOfStaffAreaNetCore7.BusinnessLayer.Mapping;
+using PursueOfStaffAreaNetCore7.DataAccessLayer.Abstract;
+using PursueOfStaffAreaNetCore7.DataAccessLayer.Concrete;
 using PursueOfStaffAreaNetCore7.DataAccessLayer.DataContext;
 using System.Reflection;
 
@@ -15,6 +21,10 @@ builder.Services.AddDbContext<DatabaseContext>(opts =>
     });
 });
 
+builder.Services.AddAutoMapper(typeof(MapProfile));
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
+builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 
 
 var app = builder.Build();
