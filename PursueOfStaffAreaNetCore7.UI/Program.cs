@@ -1,6 +1,7 @@
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using PursueOfStaffAreaNetCore7.BusinnessLayer.Abstract;
 using PursueOfStaffAreaNetCore7.BusinnessLayer.Concrete;
 using PursueOfStaffAreaNetCore7.BusinnessLayer.Mapping;
@@ -19,11 +20,16 @@ builder.Services.AddDbContext<DatabaseContext>(opts =>
     {
         opts.MigrationsAssembly(Assembly.GetAssembly(typeof(DatabaseContext)).GetName().Name);
     });
+    opts.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
 
 builder.Services.AddAutoMapper(typeof(MapProfile));
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
+builder.Services.AddScoped<IStaffRepository,StaffRepository>();
+builder.Services.AddScoped<IStaffService,StaffService>();
+builder.Services.AddScoped<IAreaRepository, AreaRepositoy>();
+builder.Services.AddScoped<IAreaService, AreaService>();
 builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 
 

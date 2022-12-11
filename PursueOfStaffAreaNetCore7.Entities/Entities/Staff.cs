@@ -72,7 +72,7 @@ namespace PursueOfStaffAreaNetCore7.EntityLayer.Entities
         public int DepartmentId { get; set; }
         public virtual Department Department { get; set; }
 
-        public int EducationId { get; set; }
+        public int EducationStateId { get; set; }
         public virtual EducationState EducationState { get; set; }
 
         public int ProfessionId { get; set; }

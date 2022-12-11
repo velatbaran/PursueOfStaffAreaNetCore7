@@ -15,5 +15,6 @@ namespace PursueOfStaffAreaNetCore7.EntityLayer.Entities
 
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public DateTime? ModifiedDate { get; set; }
+        public string RegisteringUser { get; set; } = "welatbaran";
     }
 }

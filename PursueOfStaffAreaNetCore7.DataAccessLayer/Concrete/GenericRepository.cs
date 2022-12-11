@@ -48,7 +48,9 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Concrete
 
         public void Update(T entity)
         {
-            _dbSet.Update(entity);
+            //_dbSet.Update(entity);
+            _dbSet.Entry(entity).State = EntityState.Modified;
+
         }
 
         public IQueryable<T> Where(Expression<Func<T, bool>> filter = null)

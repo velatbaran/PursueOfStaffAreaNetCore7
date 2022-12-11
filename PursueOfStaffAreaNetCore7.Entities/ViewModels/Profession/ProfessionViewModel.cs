@@ -7,27 +7,22 @@ using System.Threading.Tasks;
 
 namespace PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Profession
 {
-    public class ProfessionViewModel
+    public class ProfessionViewModel : BaseViewModel
     {
+        public string Name { get; set; }
     }
 
-    public class AddProfessionViewModel
+    public class AddProfessionViewModel : AddBaseViewModel
     {
         [Required(ErrorMessage = "{0} field not be null")]
         [StringLength(50, ErrorMessage = "{0} field must be the most {1} character")]
         public string Name { get; set; }
-
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
     }
 
-    public class EditProfessionViewModel
+    public class EditProfessionViewModel : EditBaseViewModel
     {
-        public int Id { get; set; }
-
         [Required(ErrorMessage = "{0} field not be null")]
         [StringLength(50, ErrorMessage = "{0} field must be the most {1} character")]
         public string Name { get; set; }
-
-        public DateTime ModifiedDate { get; set; } = DateTime.Now;
     }
 }

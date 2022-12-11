@@ -37,7 +37,7 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
             if (ModelState.IsValid)
             {
                 await _service.AddAsync(_mapper.Map<Profession>(model));
-                TempData["result"] = "Profession created successfully";
+                TempData["resultProfession"] = "Profession created successfully";
                 return RedirectToAction(nameof(List));
             }
             return View(model);
@@ -61,7 +61,7 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
             if (ModelState.IsValid)
             {
                 await _service.UpdateAsync(_mapper.Map<Profession>(model));
-                TempData["result"] = "Profession updated successfully";
+                TempData["resultProfession"] = "Profession updated successfully";
                 return RedirectToAction(nameof(List));
             }
             return View(model);
@@ -76,7 +76,7 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
             }
 
             await _service.RemoveAsync(profession);
-            TempData["result"] = "Profession removed successfully";
+            TempData["resultProfession"] = "Profession removed successfully";
             return RedirectToAction(nameof(List));
         }
     }

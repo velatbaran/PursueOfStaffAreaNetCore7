@@ -58,7 +58,7 @@
 </div>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 @section scripts{
-    @if (TempData["result"] != null)
+    @if (TempData["resultProfession"] != null)
     {
         <script>
             toastr.options = {
@@ -78,7 +78,7 @@
                 "showMethod": "fadeIn",
                 "hideMethod": "fadeOut"
             }
-            toastr["success"]("@TempData["result"]", "Profession");
+            toastr["success"]("@TempData["resultProfession"]", "Profession");
             toastr.options = null;  
         </script>
     }

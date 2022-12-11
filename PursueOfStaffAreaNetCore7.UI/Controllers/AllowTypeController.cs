@@ -36,7 +36,7 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
             if (ModelState.IsValid)
             {
                 await _service.AddAsync(_mapper.Map<AllowType>(model));
-                TempData["result"] = "AllowType created successfully";
+                TempData["resultAllowType"] = "AllowType created successfully";
                 return RedirectToAction(nameof(List));
             }
             return View(model);
@@ -60,7 +60,7 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
             if (ModelState.IsValid)
             {
                 await _service.UpdateAsync(_mapper.Map<AllowType>(model));
-                TempData["result"] = "AllowType updated successfully";
+                TempData["resultAllowType"] = "AllowType updated successfully";
                 return RedirectToAction(nameof(List));
             }
             return View(model);
@@ -75,7 +75,7 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
             }
 
             await _service.RemoveAsync(allowModel);
-            TempData["result"] = "AllowType removed successfully";
+            TempData["resultAllowType"] = "AllowType removed successfully";
             return RedirectToAction(nameof(List));
         }
     }

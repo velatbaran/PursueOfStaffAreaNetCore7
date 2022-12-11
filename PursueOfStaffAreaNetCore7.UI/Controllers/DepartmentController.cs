@@ -37,7 +37,7 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
             if (ModelState.IsValid)
             {
                 await _service.AddAsync(_mapper.Map<Department>(model));
-                TempData["result"] = "Department created successfully";
+                TempData["resultDepartment"] = "Department created successfully";
                 return RedirectToAction(nameof(List));
             }
             return View(model);
@@ -61,7 +61,7 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
             if (ModelState.IsValid)
             {
                 await _service.UpdateAsync(_mapper.Map<Department>(model));
-                TempData["result"] = "Department updated successfully";
+                TempData["resultDepartment"] = "Department updated successfully";
                 return RedirectToAction(nameof(List));
             }
             return View(model);
@@ -76,7 +76,7 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
             }
 
             await _service.RemoveAsync(department);
-            TempData["result"] = "Department removed successfully";
+            TempData["resultDepartment"] = "Department removed successfully";
             return RedirectToAction(nameof(List));
         }
     }

@@ -51,6 +51,9 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Migrations
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("RegisteringUser")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("StaffId")
                         .HasColumnType("int");
 
@@ -90,6 +93,9 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("RegisteringUser")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("AllowTypes");
@@ -113,6 +119,9 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("RegisteringUser")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("StaffId")
                         .HasColumnType("int");
@@ -143,6 +152,9 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("RegisteringUser")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Departments");
@@ -166,6 +178,9 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("RegisteringUser")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -195,6 +210,9 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Migrations
 
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("RegisteringUser")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("StaffId")
                         .HasColumnType("int");
@@ -231,6 +249,9 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("RegisteringUser")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("EducationStates");
@@ -254,6 +275,9 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("RegisteringUser")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -283,10 +307,7 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Migrations
                     b.Property<int>("DutyId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EducationId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("EducationStateId")
+                    b.Property<int>("EducationStateId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ExitDate")
@@ -318,6 +339,9 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ProfileImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RegisteringUser")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("RemainDay")
@@ -383,6 +407,9 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("RegisteringUser")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
@@ -475,7 +502,9 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Migrations
 
                     b.HasOne("PursueOfStaffAreaNetCore7.EntityLayer.Entities.EducationState", "EducationState")
                         .WithMany("Staffs")
-                        .HasForeignKey("EducationStateId");
+                        .HasForeignKey("EducationStateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("PursueOfStaffAreaNetCore7.EntityLayer.Entities.Profession", "Profession")
                         .WithMany("Staffs")

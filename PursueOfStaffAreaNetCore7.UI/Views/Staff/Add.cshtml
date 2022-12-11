@@ -1,0 +1,91 @@
+﻿@model AddStaffViewModel
+@{
+    ViewData["Title"] = "Add Staff";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="display-6">@ViewData["Title"]</h1>
+        <hr />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <form asp-action="Add" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="All" class="text-danger small"></div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="ProfileImage" class="form-label"></label>
+                        <input type="file" asp-for="ProfileImage" class="form-control" accept=".jpg,.jpeg,.png" />
+                        <span class="small">
+                            <i class="fa fa-info-circle me-2"></i>Only .jpg,.jpeg,.png files
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="TC" class="form-label"></label>
+                        <input asp-for="TC" class="form-control" placeholder="enter tc" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="FullName" class="form-label"></label>
+                        <input asp-for="FullName" class="form-control" placeholder="enter fullname" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="BornDate" class="form-label"></label>
+                        <input asp-for="BornDate" class="form-control" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Phone" class="form-label"></label>
+                        <input asp-for="Phone" class="form-control" placeholder="enter phone" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="StartDate" class="form-label"></label>
+                        <input asp-for="StartDate" class="form-control" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="EducationStateId"></label>
+                        @Html.DropDownList("EducationStateId",(IEnumerable<SelectListItem>) ViewBag.EducationStatus as SelectList, "Choose", new { @class = "dropdown form-control pull-right" })
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="DepartmentId"></label>
+                        @Html.DropDownList("DepartmentId",(IEnumerable<SelectListItem>) ViewBag.Departments as SelectList, "Choose", new { @class = "dropdown form-control pull-right" })
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="ProfessionId"></label>
+                        @Html.DropDownList("ProfessionId",(IEnumerable<SelectListItem>) ViewBag.Professions as SelectList, "Choose", new { @class = "dropdown form-control pull-right" })
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="DutyId"></label>
+                        @Html.DropDownList("DutyId",(IEnumerable<SelectListItem>) ViewBag.Duties as SelectList, "Choose", new { @class = "dropdown form-control pull-right" })
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Description" class="form-label"></label>
+                        <textarea asp-for="Description" rows="6" cols="6" class="form-control" placeholder="enter description"> </textarea>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <button type="submit" class="btn btn-success" title="Save"><i class="fa-solid fa-save me-2"></i>Save</button>
+                        <a asp-action="List" class="btn btn-secondary" title="Back to List"><i class="fa-solid fa-angles-left me-2"></i>Back to List</a>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section scripts{
+    @Html.Partial("_ValidationScriptsPartial")
+}
+

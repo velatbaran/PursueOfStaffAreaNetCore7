@@ -19,7 +19,11 @@
     <div class="col">
         @if (Model.Count() == 0)
         {
-            <span class="alert alert-danger">No data</span>
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <span class="alert alert-danger text-center">No data</span>
+                </div>
+            </div>
         }
         else
         {
@@ -54,7 +58,7 @@
 </div>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 @section scripts{
-    @if (TempData["result"] != null)
+    @if (TempData["resultAllowType"] != null)
     {
         <script>
             toastr.options = {
@@ -74,7 +78,7 @@
                 "showMethod": "fadeIn",
                 "hideMethod": "fadeOut"
             }
-            toastr["success"]("@TempData["result"]", "Allowtype");
+            toastr["success"]("@TempData["resultAllowType"]", "Allowtype");
             toastr.options = null;  
         </script>
     }
