@@ -29,4 +29,15 @@ namespace PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Area
         [Required(ErrorMessage = "{0} field not be null")]
         public int StaffId { get; set; }
     }
+
+    public class EditAreaViewModel : EditBaseViewModel
+    {
+        [Required(ErrorMessage = "{0} field not be null")]
+        [StringLength(50, ErrorMessage = "{0} field must be the most {1} character")]
+        public string Name { get; set; }
+
+        [DisplayName("Chief")]
+        [Required(ErrorMessage = "{0} field not be null")]
+        public int StaffId { get; set; }
+    }
 }

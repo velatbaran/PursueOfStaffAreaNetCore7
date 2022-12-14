@@ -1,0 +1,60 @@
+﻿@model AddDutyAssignViewModel
+@{
+    ViewData["Title"] = "Add Area";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="display-6">@ViewData["Title"]</h1>
+        <hr />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <form asp-action="Add" method="post">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="All" class="text-danger small"></div>
+            <div class="form-group mb-3">
+                <label asp-for="AreaId"></label>
+                @Html.DropDownListFor(m=>m.AreaId,(List<SelectListItem>) ViewBag.Areas, "Choose", new { @class = "dropdown form-control pull-right" })
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="StaffId"></label>
+                @Html.DropDownListFor(m=>m.StaffId,(List<SelectListItem>) ViewBag.Staffs, "Choose", new { @class = "dropdown form-control pull-right" })
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="WeekVacation" class="form-label"></label>
+                @* <input asp-for="WeekVacation" class="form-control" placeholder="enter week vacation" />*@
+                <select asp-for="WeekVacation" class="form-select">
+                    <option value="">Choose</option>
+                    <option value="Cumartesi">Cumartesi</option>
+                    <option value="Pazar">Pazar</option>
+                    <option value="Pazartesi">Pazartesi</option>
+                    <option value="Salı">Salı</option>
+                    <option value="Çarşamba">Çarşamba</option>
+                    <option value="Perşembe">Perşembe</option>
+                    <option value="Cuma">Cuma</option>
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Description" class="form-label"></label>
+                <textarea asp-for="Description" rows="6" cols="6" class="form-control" placeholder="enter description"> </textarea>
+            </div>
+
+            <div class="form-group mb-3">
+                <button type="submit" class="btn btn-success" title="Save"><i class="fa-solid fa-save me-2"></i>Save</button>
+                <a asp-action="List" class="btn btn-secondary" title="Back to List"><i class="fa-solid fa-angles-left me-2"></i>Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section scripts{
+    @Html.Partial("_ValidationScriptsPartial")
+}
+
+

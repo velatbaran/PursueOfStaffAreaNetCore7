@@ -4,6 +4,7 @@ using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.AllowType;
 using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Area;
 using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Department;
 using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Duty;
+using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.DutyAssign;
 using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.EducationState;
 using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Profession;
 using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Staff;
@@ -43,6 +44,11 @@ namespace PursueOfStaffAreaNetCore7.BusinnessLayer.Mapping
             // area
             CreateMap<Area, ListAreaViewModel>().ReverseMap();
             CreateMap<Area, AddAreaViewModel>().ReverseMap();
+            CreateMap<Area, EditAreaViewModel>().ReverseMap();
+            // dutyassign
+            CreateMap<DutyAssign, ListDutyAssignViewModel>().ReverseMap();
+            CreateMap<DutyAssign, AddDutyAssignViewModel>().ReverseMap();
+            CreateMap<DutyAssign, EditDutyAssignViewModel>().ReverseMap();
         } 
     }
 }

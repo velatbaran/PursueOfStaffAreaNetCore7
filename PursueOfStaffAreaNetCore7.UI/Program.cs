@@ -30,6 +30,8 @@ builder.Services.AddScoped<IStaffRepository,StaffRepository>();
 builder.Services.AddScoped<IStaffService,StaffService>();
 builder.Services.AddScoped<IAreaRepository, AreaRepositoy>();
 builder.Services.AddScoped<IAreaService, AreaService>();
+builder.Services.AddScoped<IDutyAssignRepository, DutyAssignRepository>();
+builder.Services.AddScoped<IDutyAssignService, DutyAssginService>();
 builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 
 
