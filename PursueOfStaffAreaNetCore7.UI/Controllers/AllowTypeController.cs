@@ -37,6 +37,7 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
         {
             if (ModelState.IsValid)
             {
+                model.RegisteringUser = User.FindFirst("Username").Value;
                 await _service.AddAsync(_mapper.Map<AllowType>(model));
                 TempData["resultAllowType"] = "AllowType created successfully";
                 return RedirectToAction(nameof(List));
@@ -61,6 +62,7 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
         {
             if (ModelState.IsValid)
             {
+                model.RegisteringUser = User.FindFirst("Username").Value;
                 await _service.UpdateAsync(_mapper.Map<AllowType>(model));
                 TempData["resultAllowType"] = "AllowType updated successfully";
                 return RedirectToAction(nameof(List));

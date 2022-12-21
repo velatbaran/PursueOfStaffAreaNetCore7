@@ -60,6 +60,7 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
         {
             if (ModelState.IsValid)
             {
+                model.RegisteringUser = User.FindFirst("Username").Value;
                 await _areaService.AddAsync(_mapper.Map<Area>(model));
                 TempData["resultArea"] = "Area created successfully";
                 return RedirectToAction(nameof(List));
@@ -98,6 +99,7 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
         {
             if (ModelState.IsValid)
             {
+                model.RegisteringUser = User.FindFirst("Username").Value;
                 await _areaService.UpdateAsync(_mapper.Map<Area>(model));
                 TempData["resultArea"] = "Area updated successfully";
                 return RedirectToAction(nameof(List));

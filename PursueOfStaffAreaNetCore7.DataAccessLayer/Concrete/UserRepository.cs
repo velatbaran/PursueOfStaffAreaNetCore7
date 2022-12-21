@@ -16,7 +16,7 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Concrete
 
         public Task<List<User>> GetUsersWithStaff()
         {
-            return _databaseContext.Users.Include(x => x.Staff).ToListAsync();
+            return _databaseContext.Users.Include(x => x.Staff).Include(x=>x.Staff.Department).Include(x=>x.Staff.Profession).Include(x=>x.Staff.Degree).Include(x => x.Staff.StaffStatu).Include(x => x.Staff.Duty).Include(x => x.Staff.EducationState).ToListAsync();
         }
     }
 }

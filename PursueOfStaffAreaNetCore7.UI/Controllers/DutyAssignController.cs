@@ -78,6 +78,7 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
         {
             if (ModelState.IsValid)
             {
+                model.RegisteringUser = User.FindFirst("Username").Value;
                 await _dutyAssignService.AddAsync(_mapper.Map<DutyAssign>(model));
                 TempData["resultDutyAssign"] = "DutyAssign created successfully";
                 return RedirectToAction(nameof(List));
@@ -119,6 +120,7 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
                     dutyAssign.IsActive = true;
                     TempData["resultDutyAssign"] = $"{name} is actived";
                 }
+                dutyAssign.RegisteringUser = User.FindFirst("Username").Value;
                 await _dutyAssignService.UpdateAsync(_mapper.Map<DutyAssign>(dutyAssign));
                 return RedirectToAction(nameof(List));
             }
@@ -159,6 +161,7 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
         {
             if (ModelState.IsValid)
             {
+                model.RegisteringUser = User.FindFirst("Username").Value;
                 await _dutyAssignService.UpdateAsync(_mapper.Map<DutyAssign>(model));
                 TempData["resultDutyAssign"] = "DutyAssign updated successfully";
                 return RedirectToAction(nameof(List));

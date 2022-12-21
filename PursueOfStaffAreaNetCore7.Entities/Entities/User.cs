@@ -35,8 +35,8 @@ namespace PursueOfStaffAreaNetCore7.EntityLayer.Entities
 
         public string Role { get; set; }
 
-        [DisplayName("Is Active?")]
-        public bool IsActive { get; set; }= true;
+        [DisplayName("Is Locked?")]
+        public bool IsLocked { get; set; }= false;
 
         public virtual List<AllowRequest> AllowRequests { get; set; }
 

@@ -10,6 +10,7 @@ using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Duty;
 using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.EducationState;
 using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Profession;
 using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Staff;
+using System.Security.Claims;
 
 namespace PursueOfStaffAreaNetCore7.UI.Controllers
 {
@@ -39,7 +40,14 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
 
         public async Task<IActionResult> List()
         {
-            return View(await _staffService.GetStaffsWithAllEntities());
+            List<ListStaffViewModel> listStaffViewModel = await _staffService.GetStaffsWithAllEntities();
+            if (User.FindFirstValue(ClaimTypes.Role) == "admin")
+            {
+                return View(listStaffViewModel);
+            }
+
+            return View(listStaffViewModel.Where(x => x.Department.Name == User.FindFirstValue(ClaimTypes.Actor)).ToList());
+
         }
 
         //private async Task AddStaffDropdownlistEntities()
@@ -55,7 +63,18 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            ViewBag.Departments = new SelectList(await _serviceDepartment.GetAllAsync(), "Id", "Name");
+            // ToDo List
+            IEnumerable<Department> listDepartments = await _serviceDepartment.GetAllAsync();
+            Department department = listDepartments.Where(x => x.Name == User.FindFirstValue(ClaimTypes.Actor)).FirstOrDefault();
+            List<Department> departmentofUser = new List<Department> { department}.ToList();
+            if (User.FindFirstValue(ClaimTypes.Role) == "admin")
+            {
+                ViewBag.Departments = new SelectList(await _serviceDepartment.GetAllAsync(), "Id", "Name");
+            }
+            else
+            {
+                ViewBag.Departments = new SelectList(departmentofUser, "Id", "Name");
+            }
             ViewBag.Duties = new SelectList(await _serviceDuty.GetAllAsync(), "Id", "Name");
             ViewBag.EducationStatus = new SelectList(await _serviceEducationState.GetAllAsync(), "Id", "Name");
             ViewBag.Professions = new SelectList(await _serviceProfession.GetAllAsync(), "Id", "Name");
@@ -74,7 +93,17 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
                 {
                     ModelState.AddModelError(model.TC, $"{model.TC} no was recorded already");
 
-                    ViewBag.Departments = new SelectList(await _serviceDepartment.GetAllAsync(), "Id", "Name");
+                    IEnumerable<Department> _listDepartments = await _serviceDepartment.GetAllAsync();
+                    Department _department = _listDepartments.Where(x => x.Name == User.FindFirstValue(ClaimTypes.Actor)).FirstOrDefault();
+                    List<Department> _departmentofUser = new List<Department> { _department }.ToList();
+                    if (User.FindFirstValue(ClaimTypes.Role) == "admin")
+                    {
+                        ViewBag.Departments = new SelectList(await _serviceDepartment.GetAllAsync(), "Id", "Name");
+                    }
+                    else
+                    {
+                        ViewBag.Departments = new SelectList(_departmentofUser, "Id", "Name");
+                    }
                     ViewBag.Duties = new SelectList(await _serviceDuty.GetAllAsync(), "Id", "Name");
                     ViewBag.EducationStatus = new SelectList(await _serviceEducationState.GetAllAsync(), "Id", "Name");
                     ViewBag.Professions = new SelectList(await _serviceProfession.GetAllAsync(), "Id", "Name");
@@ -98,12 +127,23 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
                     model.ProfileImage = "no-image.jpg";
                 }
 
+                model.RegisteringUser = User.FindFirst("Username").Value;
                 await _staffService.AddAsync(_mapper.Map<Staff>(model));
                 TempData["resultStaff"] = "Staff created successfully";
                 return RedirectToAction(nameof(List));
             }
-
-            ViewBag.Departments = new SelectList(await _serviceDepartment.GetAllAsync(), "Id", "Name");
+ // ToDo List
+            IEnumerable<Department> listDepartments = await _serviceDepartment.GetAllAsync();
+            Department department = listDepartments.Where(x => x.Name == User.FindFirstValue(ClaimTypes.Actor)).FirstOrDefault();
+            List<Department> departmentofUser = new List<Department> { department }.ToList();
+            if (User.FindFirstValue(ClaimTypes.Role) == "admin")
+            {
+                ViewBag.Departments = new SelectList(await _serviceDepartment.GetAllAsync(), "Id", "Name");
+            }
+            else
+            {
+                ViewBag.Departments = new SelectList(departmentofUser, "Id", "Name");
+            }
             ViewBag.Duties = new SelectList(await _serviceDuty.GetAllAsync(), "Id", "Name");
             ViewBag.EducationStatus = new SelectList(await _serviceEducationState.GetAllAsync(), "Id", "Name");
             ViewBag.Professions = new SelectList(await _serviceProfession.GetAllAsync(), "Id", "Name");
@@ -137,8 +177,18 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
             {
                 throw new NotFoundException($"{id} nolu staff not found");
             }
-
-            ViewBag.Departments = new SelectList(await _serviceDepartment.GetAllAsync(), "Id", "Name", staff.DepartmentId);
+            // ToDo List
+            IEnumerable<Department> listDepartments = await _serviceDepartment.GetAllAsync();
+            Department department = listDepartments.Where(x => x.Name == User.FindFirstValue(ClaimTypes.Actor)).FirstOrDefault();
+            List<Department> departmentofUser = new List<Department> { department }.ToList();
+            if (User.FindFirstValue(ClaimTypes.Role) == "admin")
+            {
+                ViewBag.Departments = new SelectList(await _serviceDepartment.GetAllAsync(), "Id", "Name",staff.DepartmentId);
+            }
+            else
+            {
+                ViewBag.Departments = new SelectList(departmentofUser, "Id", "Name",staff.DepartmentId);
+            }
             ViewBag.Duties = new SelectList(await _serviceDuty.GetAllAsync(), "Id", "Name", staff.DutyId);
             ViewBag.EducationStatus = new SelectList(await _serviceEducationState.GetAllAsync(), "Id", "Name", staff.EducationStateId);
             ViewBag.Professions = new SelectList(await _serviceProfession.GetAllAsync(), "Id", "Name", staff.ProfessionId);
@@ -169,7 +219,18 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
                 {
                     ModelState.AddModelError(model.TC, $"{model.TC} TC no was recorded already");
 
-                    ViewBag.Departments = new SelectList(await _serviceDepartment.GetAllAsync(), "Id", "Name", staff.DepartmentId);
+                    // ToDo List
+                    IEnumerable<Department> _listDepartments = await _serviceDepartment.GetAllAsync();
+                    Department _department = _listDepartments.Where(x => x.Name == User.FindFirstValue(ClaimTypes.Actor)).FirstOrDefault();
+                    List<Department> _departmentofUser = new List<Department> { _department }.ToList();
+                    if (User.FindFirstValue(ClaimTypes.Role) == "admin")
+                    {
+                        ViewBag.Departments = new SelectList(await _serviceDepartment.GetAllAsync(), "Id", "Name", staff.DepartmentId);
+                    }
+                    else
+                    {
+                        ViewBag.Departments = new SelectList(_departmentofUser, "Id", "Name", staff.DepartmentId);
+                    }
                     ViewBag.Duties = new SelectList(await _serviceDuty.GetAllAsync(), "Id", "Name", staff.DutyId);
                     ViewBag.EducationStatus = new SelectList(await _serviceEducationState.GetAllAsync(), "Id", "Name", staff.EducationStateId);
                     ViewBag.Professions = new SelectList(await _serviceProfession.GetAllAsync(), "Id", "Name", staff.ProfessionId);
@@ -179,12 +240,23 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
                     return View(model);
                 }
 
+                model.RegisteringUser = User.FindFirst("Username").Value;
                 await _staffService.UpdateAsync(_mapper.Map<Staff>(model));
                 TempData["resultStaff"] = "Staff updated successfully";
                 return RedirectToAction(nameof(List));
             }
 
-            ViewBag.Departments = new SelectList(await _serviceDepartment.GetAllAsync(), "Id", "Name", model.DepartmentId);
+            IEnumerable<Department> listDepartments = await _serviceDepartment.GetAllAsync();
+            Department department = listDepartments.Where(x => x.Name == User.FindFirstValue(ClaimTypes.Actor)).FirstOrDefault();
+            List<Department> departmentofUser = new List<Department> { department }.ToList();
+            if (User.FindFirstValue(ClaimTypes.Role) == "admin")
+            {
+                ViewBag.Departments = new SelectList(await _serviceDepartment.GetAllAsync(), "Id", "Name", model.DepartmentId);
+            }
+            else
+            {
+                ViewBag.Departments = new SelectList(departmentofUser, "Id", "Name", model.DepartmentId);
+            }
             ViewBag.Duties = new SelectList(await _serviceDuty.GetAllAsync(), "Id", "Name", model.DutyId);
             ViewBag.EducationStatus = new SelectList(await _serviceEducationState.GetAllAsync(), "Id", "Name", model.EducationStateId);
             ViewBag.Professions = new SelectList(await _serviceProfession.GetAllAsync(), "Id", "Name", model.ProfessionId);

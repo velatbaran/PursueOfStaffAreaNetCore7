@@ -29,6 +29,8 @@
                             Mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus.
                         </p>
                         <hr />
+                        @Html.AntiForgeryToken()
+                        <div asp-validation-summary="All" class="text-danger small"></div>
                         <!-- Usernama input -->
                         <div class="form-outline mb-4">
                             <input asp-for="Username" id="form3Example3" class="form-control form-control-lg"

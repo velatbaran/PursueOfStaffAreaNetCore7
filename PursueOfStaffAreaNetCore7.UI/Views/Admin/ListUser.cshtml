@@ -35,14 +35,14 @@
                         <th>Email</th>
                         <th>Password</th>
                         <th>Role</th>
-                        <th>Is Active?</th>
+                        <th>Is Locked?</th>
                         <th>Created At</th>
                         <th>Modified At</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (ListUserViewModel item in Model)
+                    @foreach (ListUserViewModel item in Model.OrderByDescending(x=>x.CreatedDate))
                     {
                         <tr>
                             <td>@item.Staff.FullName</td>
@@ -51,13 +51,13 @@
                             <td>@item.Password</td>
                             <td>@item.Role</td>
                             <td>
-                                @if (item.IsActive)
+                                @if (item.IsLocked)
                                 {
-                                    <a asp-action="UserIsActive" asp-route-id="@item.Id" class="btn btn-success btn-sm text-white" onclick="return confirm('Are you want to inactive this user : @item.Username')" title="active"> <i class="fa fa-check"></i></a>
+                                    <a asp-action="DoUserIsLocked" asp-route-id="@item.Id" class="btn btn-secondary btn-sm" onclick="return confirm('Are you want to unlocked this user : @item.Username')" title="locked"> <i class="fa-solid fa-lock"></i></a>
                                 }
                                 else
                                 {
-                                    <a asp-action="UserIsActive" asp-route-id="@item.Id" class="btn btn-danger btn-sm text-white" onclick="return confirm('Are you want to active this user : @item.Username')" title="inactive"> <i class="fa fa-times"></i></a>
+                                    <a asp-action="DoUserIsLocked" asp-route-id="@item.Id" class="btn btn-secondary btn-sm" onclick="return confirm('Are you want to locked this user : @item.Username')" title="unlocked"> <i class="fa-solid fa-lock-open"></i></a>
                                 }
                             </td>
                             <td>@item.CreatedDate</td>

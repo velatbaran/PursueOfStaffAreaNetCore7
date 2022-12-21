@@ -15,7 +15,7 @@ namespace PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Admin
         public string Email { get; set; }
         public string Password { get; set; }
         public string Role { get; set; }
-        public bool IsActive { get; set; }
+        public bool IsLocked { get; set; } = true;
     }
 
     public class ListUserViewModel : UserViewModel
@@ -80,14 +80,12 @@ namespace PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Admin
         [StringLength(50, ErrorMessage = "{0} field must be the most {1} character")]
         public string Email { get; set; }
     }
-
     public class EditRoleViewModel : EditBaseViewModel
     {
         [Required(ErrorMessage = "{0} field not be null")]
         [StringLength(50, ErrorMessage = "{0} field must be the most {1} character")]
         public string Role { get; set; }
     }
-
     public class EditPasswordViewModel : EditBaseViewModel
     {
         [Required(ErrorMessage = "{0} field not be null")]

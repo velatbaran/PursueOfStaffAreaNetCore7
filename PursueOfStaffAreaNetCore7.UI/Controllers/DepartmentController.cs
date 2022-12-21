@@ -38,6 +38,7 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
         {
             if (ModelState.IsValid)
             {
+                model.RegisteringUser = User.FindFirst("Username").Value;
                 await _service.AddAsync(_mapper.Map<Department>(model));
                 TempData["resultDepartment"] = "Department created successfully";
                 return RedirectToAction(nameof(List));
@@ -62,6 +63,7 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
         {
             if (ModelState.IsValid)
             {
+                model.RegisteringUser = User.FindFirst("Username").Value;
                 await _service.UpdateAsync(_mapper.Map<Department>(model));
                 TempData["resultDepartment"] = "Department updated successfully";
                 return RedirectToAction(nameof(List));

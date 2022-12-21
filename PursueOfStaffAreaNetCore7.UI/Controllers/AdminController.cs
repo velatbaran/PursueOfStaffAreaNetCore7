@@ -72,6 +72,8 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
                 }
 
                 model.Password = _hasher.DoMD5HashedString(model.Password);
+                model.RePassword = _hasher.DoMD5HashedString(model.Password);
+                model.RegisteringUser = User.FindFirst("Username").Value;
                 await _userService.AddAsync(_mapper.Map<User>(model));
                 TempData["resultUser"] = "User created successfully";
                 return RedirectToAction(nameof(ListUser));
@@ -139,6 +141,7 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
                 }
 
                 User user = await _userService.GetByIdAsync(model.Id);
+                model.RegisteringUser = User.FindFirst("Username").Value;
                 await _userService.UpdateAsync(_mapper.Map(model,user));
                 TempData["resultUser"] = "User updated successfully";
                 return RedirectToAction(nameof(ListUser));
@@ -153,20 +156,33 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> UserIsActive(int id)
+        public async Task<IActionResult> DoUserIsLocked(int id)
         {
             var user = await _userService.GetByIdAsync(id);
-            if (user.IsActive)
+            if (user.IsLocked)
             {
-                user.IsActive = false;
-                TempData["resultUser"] = $"{user.Username} is inactived";
+                user.IsLocked = false;
+                TempData["resultUser"] = $"{user.Username} is unlocked";
             }
             else
             {
-                user.IsActive = true;
-                TempData["resultUser"] = $"{user.Username} is actived";
+                user.IsLocked = true;
+                TempData["resultUser"] = $"{user.Username} is locked";
             }
+            user.RegisteringUser = User.FindFirst("Username").Value;
             await _userService.UpdateAsync(_mapper.Map<User>(user));
+            return RedirectToAction(nameof(ListUser));
+        }
+
+        public async Task<IActionResult> RemoveUser(int id)
+        {
+            User user = await _userService.GetByIdAsync(id);
+            if (user == null)
+            {
+                throw new NotFoundException($"{id} nolu user not found");
+            }
+            await _userService.RemoveAsync(user);
+            TempData["resultUser"] = "User removed successfully";
             return RedirectToAction(nameof(ListUser));
         }
     }
