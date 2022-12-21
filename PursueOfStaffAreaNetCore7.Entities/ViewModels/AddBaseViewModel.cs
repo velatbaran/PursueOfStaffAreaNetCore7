@@ -9,6 +9,6 @@ namespace PursueOfStaffAreaNetCore7.EntityLayer.ViewModels
     public class AddBaseViewModel
     {
         public DateTime CreatedDate { get; set; } = DateTime.Now;
-        public string RegisteringUser { get; set; } = "welatbaran";
+        public string RegisteringUser { get; set; } = "system";
     }
 }

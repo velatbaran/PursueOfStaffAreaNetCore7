@@ -31,6 +31,11 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Concrete
             return _dbSet.AnyAsync(filter);
         }
 
+        public async Task<T> FindAsync(Expression<Func<T, bool>> filter = null)
+        {
+            return await _dbSet.FindAsync(filter);
+        }
+
         public IQueryable<T> GetAll()
         {
             return _dbSet.AsNoTracking().AsQueryable();

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PursueOfStaffAreaNetCore7.BusinnessLayer.Abstract;
 using PursueOfStaffAreaNetCore7.BusinnessLayer.Exceptions;
@@ -9,6 +10,7 @@ using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Profession;
 
 namespace PursueOfStaffAreaNetCore7.UI.Controllers
 {
+    [Authorize]
     public class DutyController : Controller
     {
         private readonly IService<Duty> _service;

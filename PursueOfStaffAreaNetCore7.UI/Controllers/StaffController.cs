@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PursueOfStaffAreaNetCore7.BusinnessLayer.Abstract;
@@ -12,6 +13,7 @@ using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Staff;
 
 namespace PursueOfStaffAreaNetCore7.UI.Controllers
 {
+    [Authorize]
     public class StaffController : Controller
     {
         private readonly IStaffService _staffService;
@@ -19,9 +21,11 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
         private readonly IService<Duty> _serviceDuty;
         private readonly IService<Profession> _serviceProfession;
         private readonly IService<EducationState> _serviceEducationState;
+        private readonly IService<Degree> _serviceDegree;
+        private readonly IService<StaffStatu> _serviceStaffStatu;
         private readonly IMapper _mapper;
 
-        public StaffController(IService<Department> serviceDepartment, IService<Duty> serviceDuty, IService<Profession> serviceProfession, IService<EducationState> serviceEducationState, IStaffService staffService, IMapper mapper)
+        public StaffController(IService<Department> serviceDepartment, IService<Duty> serviceDuty, IService<Profession> serviceProfession, IService<EducationState> serviceEducationState, IStaffService staffService, IMapper mapper, IService<Degree> serviceDegree, IService<StaffStatu> serviceStaffStatu)
         {
             _serviceDepartment = serviceDepartment;
             _serviceDuty = serviceDuty;
@@ -29,6 +33,8 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
             _serviceEducationState = serviceEducationState;
             _staffService = staffService;
             _mapper = mapper;
+            _serviceDegree = serviceDegree;
+            _serviceStaffStatu = serviceStaffStatu;
         }
 
         public async Task<IActionResult> List()
@@ -36,18 +42,25 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
             return View(await _staffService.GetStaffsWithAllEntities());
         }
 
-        private async Task AddStaffDropdownlistEntities()
+        //private async Task AddStaffDropdownlistEntities()
+        //{
+        //    ViewBag.Departments = new SelectList(await _serviceDepartment.GetAllAsync(), "Id", "Name");
+        //    ViewBag.Duties = new SelectList(await _serviceDuty.GetAllAsync(), "Id", "Name");
+        //    ViewBag.EducationStatus = new SelectList(await _serviceEducationState.GetAllAsync(), "Id", "Name");
+        //    ViewBag.Professions = new SelectList(await _serviceProfession.GetAllAsync(), "Id", "Name");
+        //    ViewBag.Degrees = new SelectList(await _serviceDegree.GetAllAsync(), "Id", "Name");
+        //    ViewBag.StaffStatus = new SelectList(await _serviceStaffStatu.GetAllAsync(), "Id", "Name");
+        //}
+
+        [HttpGet]
+        public async Task<IActionResult> Add()
         {
             ViewBag.Departments = new SelectList(await _serviceDepartment.GetAllAsync(), "Id", "Name");
             ViewBag.Duties = new SelectList(await _serviceDuty.GetAllAsync(), "Id", "Name");
             ViewBag.EducationStatus = new SelectList(await _serviceEducationState.GetAllAsync(), "Id", "Name");
             ViewBag.Professions = new SelectList(await _serviceProfession.GetAllAsync(), "Id", "Name");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Add()
-        {
-            AddStaffDropdownlistEntities();
+            ViewBag.Degrees = new SelectList(await _serviceDegree.GetAllAsync(), "Id", "Name");
+            ViewBag.StaffStatus = new SelectList(await _serviceStaffStatu.GetAllAsync(), "Id", "Name");
             return View();
         }
 
@@ -60,7 +73,14 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
                 if (await _staffService.AnyAsync(x => x.TC == model.TC))
                 {
                     ModelState.AddModelError(model.TC, $"{model.TC} no was recorded already");
-                    AddStaffDropdownlistEntities();
+
+                    ViewBag.Departments = new SelectList(await _serviceDepartment.GetAllAsync(), "Id", "Name");
+                    ViewBag.Duties = new SelectList(await _serviceDuty.GetAllAsync(), "Id", "Name");
+                    ViewBag.EducationStatus = new SelectList(await _serviceEducationState.GetAllAsync(), "Id", "Name");
+                    ViewBag.Professions = new SelectList(await _serviceProfession.GetAllAsync(), "Id", "Name");
+                    ViewBag.Degrees = new SelectList(await _serviceDegree.GetAllAsync(), "Id", "Name");
+                    ViewBag.StaffStatus = new SelectList(await _serviceStaffStatu.GetAllAsync(), "Id", "Name");
+
                     return View(model);
                 }
 
@@ -82,7 +102,14 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
                 TempData["resultStaff"] = "Staff created successfully";
                 return RedirectToAction(nameof(List));
             }
-            AddStaffDropdownlistEntities();
+
+            ViewBag.Departments = new SelectList(await _serviceDepartment.GetAllAsync(), "Id", "Name");
+            ViewBag.Duties = new SelectList(await _serviceDuty.GetAllAsync(), "Id", "Name");
+            ViewBag.EducationStatus = new SelectList(await _serviceEducationState.GetAllAsync(), "Id", "Name");
+            ViewBag.Professions = new SelectList(await _serviceProfession.GetAllAsync(), "Id", "Name");
+            ViewBag.Degrees = new SelectList(await _serviceDegree.GetAllAsync(), "Id", "Name");
+            ViewBag.StaffStatus = new SelectList(await _serviceStaffStatu.GetAllAsync(), "Id", "Name");
+
             return View(model);
         }
 
@@ -115,6 +142,8 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
             ViewBag.Duties = new SelectList(await _serviceDuty.GetAllAsync(), "Id", "Name", staff.DutyId);
             ViewBag.EducationStatus = new SelectList(await _serviceEducationState.GetAllAsync(), "Id", "Name", staff.EducationStateId);
             ViewBag.Professions = new SelectList(await _serviceProfession.GetAllAsync(), "Id", "Name", staff.ProfessionId);
+            ViewBag.Degrees = new SelectList(await _serviceDegree.GetAllAsync(), "Id", "Name",staff.DegreeId);
+            ViewBag.StaffStatus = new SelectList(await _serviceStaffStatu.GetAllAsync(), "Id", "Name",staff.StaffStatuId);
 
             return View(_mapper.Map<EditStaffViewModel>(staff));
         }
@@ -144,6 +173,8 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
                     ViewBag.Duties = new SelectList(await _serviceDuty.GetAllAsync(), "Id", "Name", staff.DutyId);
                     ViewBag.EducationStatus = new SelectList(await _serviceEducationState.GetAllAsync(), "Id", "Name", staff.EducationStateId);
                     ViewBag.Professions = new SelectList(await _serviceProfession.GetAllAsync(), "Id", "Name", staff.ProfessionId);
+                    ViewBag.Degrees = new SelectList(await _serviceDegree.GetAllAsync(), "Id", "Name", staff.DegreeId);
+                    ViewBag.StaffStatus = new SelectList(await _serviceStaffStatu.GetAllAsync(), "Id", "Name", staff.StaffStatuId);
 
                     return View(model);
                 }
@@ -157,6 +188,8 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
             ViewBag.Duties = new SelectList(await _serviceDuty.GetAllAsync(), "Id", "Name", model.DutyId);
             ViewBag.EducationStatus = new SelectList(await _serviceEducationState.GetAllAsync(), "Id", "Name", model.EducationStateId);
             ViewBag.Professions = new SelectList(await _serviceProfession.GetAllAsync(), "Id", "Name", model.ProfessionId);
+            ViewBag.Degrees = new SelectList(await _serviceDegree.GetAllAsync(), "Id", "Name", model.DegreeId);
+            ViewBag.StaffStatus = new SelectList(await _serviceStaffStatu.GetAllAsync(), "Id", "Name", model.StaffStatuId);
 
             return View(model);
         }
@@ -171,6 +204,19 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
             await _staffService.RemoveAsync(staff);
             TempData["resultStaff"] = "Staff removed successfully";
             return RedirectToAction(nameof(List));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Detail(int id)
+        {
+            List<ListStaffViewModel> listStaff = await _staffService.GetStaffsWithAllEntities();
+            var staff = listStaff.Where(x => x.Id == id).FirstOrDefault();
+            if (staff == null)
+            {
+                throw new NotFoundException($"{id} nolu staff not found");
+            }
+
+            return View(_mapper.Map<Staff>(staff));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PursueOfStaffAreaNetCore7.BusinnessLayer.Abstract;
 using PursueOfStaffAreaNetCore7.BusinnessLayer.Exceptions;
@@ -8,6 +9,7 @@ using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Department;
 
 namespace PursueOfStaffAreaNetCore7.UI.Controllers
 {
+    [Authorize]
     public class DepartmentController : Controller
     {
         private readonly IService<Department> _service;

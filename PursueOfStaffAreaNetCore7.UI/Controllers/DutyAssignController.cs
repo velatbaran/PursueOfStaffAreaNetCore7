@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PursueOfStaffAreaNetCore7.BusinnessLayer.Abstract;
@@ -9,6 +10,7 @@ using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.DutyAssign;
 
 namespace PursueOfStaffAreaNetCore7.UI.Controllers
 {
+    [Authorize]
     public class DutyAssignController : Controller
     {
         private readonly IDutyAssignService _dutyAssignService;

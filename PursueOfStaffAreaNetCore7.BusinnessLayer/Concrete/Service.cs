@@ -28,6 +28,11 @@ namespace PursueOfStaffAreaNetCore7.BusinnessLayer.Concrete
             return await _repository.AnyAsync(filter);
         }
 
+        public async Task<T> FindAsync(Expression<Func<T, bool>> filter = null)
+        {
+            return await _repository.FindAsync(filter);
+        }
+
         public async Task<IEnumerable<T>> GetAllAsync()
         {
             return await _repository.GetAll().ToListAsync();

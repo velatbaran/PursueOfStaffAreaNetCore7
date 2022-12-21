@@ -1,0 +1,107 @@
+﻿@model List<ListUserViewModel>
+@{
+    ViewData["Title"] = "List Users";
+}
+
+<div class="row mb-3">
+    <div class="col">
+        <h1 class="display-6">@ViewData["Title"]</h1>
+        <hr />
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col-md-12">
+        <a asp-action="AddUser" class="btn btn-primary btn-sm" title="New User"><i class="fa fa-plus me-2"></i>New User</a>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col">
+        @if (Model.Count() == 0)
+        {
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <span class="alert alert-danger text-center">No data</span>
+                </div>
+            </div>
+        }
+        else
+        {
+            <table class="table table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th>FullName</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Role</th>
+                        <th>Is Active?</th>
+                        <th>Created At</th>
+                        <th>Modified At</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ListUserViewModel item in Model)
+                    {
+                        <tr>
+                            <td>@item.Staff.FullName</td>
+                            <td>@item.Username</td>
+                            <td>@item.Email</td>
+                            <td>@item.Password</td>
+                            <td>@item.Role</td>
+                            <td>
+                                @if (item.IsActive)
+                                {
+                                    <a asp-action="UserIsActive" asp-route-id="@item.Id" class="btn btn-success btn-sm text-white" onclick="return confirm('Are you want to inactive this user : @item.Username')" title="active"> <i class="fa fa-check"></i></a>
+                                }
+                                else
+                                {
+                                    <a asp-action="UserIsActive" asp-route-id="@item.Id" class="btn btn-danger btn-sm text-white" onclick="return confirm('Are you want to active this user : @item.Username')" title="inactive"> <i class="fa fa-times"></i></a>
+                                }
+                            </td>
+                            <td>@item.CreatedDate</td>
+                            <td>@item.ModifiedDate</td>
+                            <td class="text-end">
+                                <a asp-action="EditUser" asp-route-id="@item.Id" class="btn btn-warning btn-sm text-white" title="Edit"><i class="fa fa-edit me-2"></i>Edit</a>
+                                <a asp-action="RemoveUser" asp-route-id="@item.Id"
+                           onclick="return confirm('Are you sure want to remove this area : @item.Username ?')" asp-route-id="@item.Id"
+                           class="btn btn-danger btn-sm" title="Remove"><i class="fa fa-trash me-2"></i>Remove</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+@section scripts{
+    @if (TempData["resultUser"] != null)
+    {
+        <script>
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr["success"]("@TempData["resultUser"]", "User");
+            toastr.options = null;
+        </script>
+    }
+}
+
+
+

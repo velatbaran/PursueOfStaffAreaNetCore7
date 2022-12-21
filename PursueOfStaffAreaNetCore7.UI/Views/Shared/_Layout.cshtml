@@ -181,6 +181,23 @@
                 </ul>
             </li><!-- End Duty Nav -->
             <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#degree-nav" data-bs-toggle="collapse" href="#" title="Degree">
+                    <i class="fa-solid fa-bolt me-2"></i><span>Degree</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="degree-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a asp-controller="Degree" asp-action="List" title="List Degrees">
+                            <i class="fa-solid fa-list me-2"></i><span>List Degrees</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Degree" asp-action="Add" title="Add Degree">
+                            <i class="fa-solid fa-plus me-2"></i><span>Add Degree</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Degree Nav -->
+            <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#area-nav" data-bs-toggle="collapse" href="#" title="Area">
                     <i class="fa-solid fa-location-pin me-2"></i><span>Area</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
@@ -214,6 +231,23 @@
                     </li>
                 </ul>
             </li><!-- End DutyAssign Nav -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#permit-nav" data-bs-toggle="collapse" href="#" title="Permit Operations">
+                    <i class="fa-brands fa-squarespace me-2"></i><span>Permit Operations</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="permit-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a asp-controller="Permit" asp-action="List" title="List Permits">
+                            <i class="fa-solid fa-list me-2"></i><span>List Permits</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Permit" asp-action="Add" title="Add Permit">
+                            <i class="fa-solid fa-plus me-2"></i><span>Add Permit</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Permit Nav -->
 
             <li class="nav-heading">Account</li>
 
@@ -225,6 +259,24 @@
                     <li>
                         <a asp-controller="Account" asp-action="MyProfile" title="My Profile">
                             <i class="fa-solid fa-user-pen me-2"></i><span>My Profile</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Profile Page Nav -->
+
+            <li class="nav-heading">Admin</li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#admin-nav" data-bs-toggle="collapse" href="#" title="Admin">
+                    <i class="fa-solid fa-screwdriver-wrench me-2"></i><span>Admin</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="admin-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a asp-controller="Admin" asp-action="ListUser" title="List Users">
+                            <i class="fa-solid fa-list me-2"></i><span>List Users</span>
+                        </a>
+                        <a asp-controller="Admin" asp-action="AddUser" title="AddUser">
+                            <i class="fa-solid fa-user-plus me-2"></i><span>Add User</span>
                         </a>
                     </li>
                 </ul>
@@ -247,7 +299,7 @@
             &copy; Copyright <strong><span>Pursue of Staff Area</span></strong>. All Rights Reserved
         </div>
         <div class="credits">
-            Designed by <a href="http://welatbaran.somee.com/">Welat BARAN &copy; @DateTime.Now.Year</a>
+            Designed by <a href="http://welatbaran.somee.com/">Welat BARAN &copy; @DateTime.Now.Year All rights reserved </a>
         </div>
     </footer><!-- End Footer -->
 

@@ -1,13 +1,16 @@
 ﻿using AutoMapper;
 using PursueOfStaffAreaNetCore7.EntityLayer.Entities;
+using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Admin;
 using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.AllowType;
 using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Area;
+using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Degree;
 using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Department;
 using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Duty;
 using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.DutyAssign;
 using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.EducationState;
 using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Profession;
 using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Staff;
+using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.StaffStatu;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +52,20 @@ namespace PursueOfStaffAreaNetCore7.BusinnessLayer.Mapping
             CreateMap<DutyAssign, ListDutyAssignViewModel>().ReverseMap();
             CreateMap<DutyAssign, AddDutyAssignViewModel>().ReverseMap();
             CreateMap<DutyAssign, EditDutyAssignViewModel>().ReverseMap();
+            // staff statu
+            CreateMap<StaffStatu, StaffStatuViewModel>().ReverseMap();
+            // degree
+            CreateMap<Degree, DegreeViewModel>().ReverseMap();
+            CreateMap<Degree, AddDegreeViewModel>().ReverseMap();
+            CreateMap<Degree, EditDegreeViewModel>().ReverseMap();
+            // user
+            CreateMap<User, ListUserViewModel>().ReverseMap();
+            CreateMap<User, AddUserViewModel>().ReverseMap();
+            CreateMap<User, EditUserViewModel>().ReverseMap();
+            //CreateMap<User, EditUserNameViewModel>().ReverseMap();
+            //CreateMap<User, EditEmailViewModel>().ReverseMap();
+            //CreateMap<User, EditRoleViewModel>().ReverseMap();
+            //CreateMap<User, EditPasswordViewModel>().ReverseMap();
         } 
     }
 }

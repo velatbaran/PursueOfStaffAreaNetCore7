@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using PursueOfStaffAreaNetCore7.BusinnessLayer.Mapping;
 using PursueOfStaffAreaNetCore7.DataAccessLayer.Abstract;
 using PursueOfStaffAreaNetCore7.DataAccessLayer.Concrete;
 using PursueOfStaffAreaNetCore7.DataAccessLayer.DataContext;
+using PursueOfStaffAreaNetCore7.UI.Helpers;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,10 +32,24 @@ builder.Services.AddScoped<IStaffRepository,StaffRepository>();
 builder.Services.AddScoped<IStaffService,StaffService>();
 builder.Services.AddScoped<IAreaRepository, AreaRepositoy>();
 builder.Services.AddScoped<IAreaService, AreaService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IDutyAssignRepository, DutyAssignRepository>();
 builder.Services.AddScoped<IDutyAssignService, DutyAssginService>();
 builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+builder.Services.AddScoped<IHasher,Hasher>();
 
+builder.Services
+    .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(opts =>
+    {
+        opts.Cookie.Name = "PursueOfStaffAreaNetCore7.auth";
+        opts.ExpireTimeSpan = TimeSpan.FromDays(7);
+        opts.SlidingExpiration = false;
+        opts.LoginPath = "/Account/Login";
+        opts.LogoutPath = "/Account/Logout";
+        opts.AccessDeniedPath = "/Home/AccessDenied";
+    });
 
 var app = builder.Build();
 
@@ -50,6 +66,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

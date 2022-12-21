@@ -1,7 +1,9 @@
-﻿using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Department;
+﻿using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Degree;
+using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Department;
 using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Duty;
 using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.EducationState;
 using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Profession;
+using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.StaffStatu;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,8 +22,14 @@ namespace PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Staff
         public string Phone { get; set; }
         public string ProfileImage { get; set; }
         public DateTime StartDate { get; set; }
+        public DateTime? ExitDate { get; set; }
         public string Description { get; set; }
-        public bool IsStateWorking { get; set; } = true;
+        public bool IsStateWorking { get; set; }
+        public int TotalWorkingYear { get; set; }
+        public int TotalAllowDay { get; set; }
+        public int UsedDay { get; set; }
+        public int RemainDay { get; set; }
+        public bool IsDutyAssigned { get; set; } = false;
     }
     public class ListStaffViewModel : StaffViewModel
     {
@@ -29,6 +37,8 @@ namespace PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Staff
         public EducationStateViewModel EducationState { get; set; }
         public ProfessionViewModel Profession { get; set; }
         public DepartmentViewModel Department { get; set; }
+        public DegreeViewModel Degree { get; set; }
+        public StaffStatuViewModel StaffStatu { get; set; }
     }
     public class AddStaffViewModel : AddBaseViewModel
     {
@@ -74,6 +84,12 @@ namespace PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Staff
 
         [DisplayName("Duty")]
         public int DutyId { get; set; }
+
+        [DisplayName("Staff Statu")]
+        public int StaffStatuId { get; set; }
+
+        [DisplayName("Degree")]
+        public int DegreeId { get; set; }
     }
     public class EditStaffViewModel : EditBaseViewModel
     {
@@ -123,6 +139,12 @@ namespace PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Staff
         [DisplayName("Duty")]
         [Required(ErrorMessage = "{0} field not be null")]
         public int DutyId { get; set; }
+
+        [DisplayName("Staff Statu")]
+        public int StaffStatuId { get; set; }
+
+        [DisplayName("Degree")]
+        public int DegreeId { get; set; }
     }
 
 }

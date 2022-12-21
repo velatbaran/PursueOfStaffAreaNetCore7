@@ -81,6 +81,12 @@ namespace PursueOfStaffAreaNetCore7.EntityLayer.Entities
         public int DutyId { get; set; }
         public virtual Duty Duty { get; set; }
 
+        public int DegreeId { get; set; }
+        public virtual Degree Degree { get; set; }
+
+        public int StaffStatuId { get; set; }
+        public virtual StaffStatu StaffStatu { get; set; }
+
         public virtual List<Area> Areas { get; set; }
         public virtual List<DutyAssign> DutyAssigns { get; set; }
         public virtual List<AllowRequest> AllowRequests { get; set; }

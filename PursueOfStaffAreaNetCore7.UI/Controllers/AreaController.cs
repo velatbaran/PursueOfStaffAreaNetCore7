@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -10,6 +11,7 @@ using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Area;
 
 namespace PursueOfStaffAreaNetCore7.UI.Controllers
 {
+    [Authorize]
     public class AreaController : Controller
     {
         private readonly IAreaService _areaService;
@@ -27,7 +29,7 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
             return View(await _areaService.GetAreasWithStaff());
         }
 
-        private async Task DropDpwnListStaffLoader()
+        private async Task DropDownListStaffLoader()
         {
             List<SelectListItem> staffList = (from s in await _staffService.GetStaffsWithAllEntities()
                                               select new SelectListItem

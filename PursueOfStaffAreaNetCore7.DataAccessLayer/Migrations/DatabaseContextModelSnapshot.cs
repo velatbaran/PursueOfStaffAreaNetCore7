@@ -133,6 +133,33 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Migrations
                     b.ToTable("Areas");
                 });
 
+            modelBuilder.Entity("PursueOfStaffAreaNetCore7.EntityLayer.Entities.Degree", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("RegisteringUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Degrees");
+                });
+
             modelBuilder.Entity("PursueOfStaffAreaNetCore7.EntityLayer.Entities.Department", b =>
                 {
                     b.Property<int>("Id")
@@ -298,6 +325,9 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("DegreeId")
+                        .HasColumnType("int");
+
                     b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
@@ -347,6 +377,9 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Migrations
                     b.Property<int>("RemainDay")
                         .HasColumnType("int");
 
+                    b.Property<int>("StaffStatuId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
@@ -366,6 +399,8 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DegreeId");
+
                     b.HasIndex("DepartmentId");
 
                     b.HasIndex("DutyId");
@@ -374,7 +409,36 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Migrations
 
                     b.HasIndex("ProfessionId");
 
+                    b.HasIndex("StaffStatuId");
+
                     b.ToTable("Staffs");
+                });
+
+            modelBuilder.Entity("PursueOfStaffAreaNetCore7.EntityLayer.Entities.StaffStatu", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("RegisteringUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StaffStatus");
                 });
 
             modelBuilder.Entity("PursueOfStaffAreaNetCore7.EntityLayer.Entities.User", b =>
@@ -488,6 +552,12 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Migrations
 
             modelBuilder.Entity("PursueOfStaffAreaNetCore7.EntityLayer.Entities.Staff", b =>
                 {
+                    b.HasOne("PursueOfStaffAreaNetCore7.EntityLayer.Entities.Degree", "Degree")
+                        .WithMany("Staffs")
+                        .HasForeignKey("DegreeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("PursueOfStaffAreaNetCore7.EntityLayer.Entities.Department", "Department")
                         .WithMany("Staffs")
                         .HasForeignKey("DepartmentId")
@@ -512,6 +582,14 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("PursueOfStaffAreaNetCore7.EntityLayer.Entities.StaffStatu", "StaffStatu")
+                        .WithMany("Staffs")
+                        .HasForeignKey("StaffStatuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Degree");
+
                     b.Navigation("Department");
 
                     b.Navigation("Duty");
@@ -519,6 +597,8 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Migrations
                     b.Navigation("EducationState");
 
                     b.Navigation("Profession");
+
+                    b.Navigation("StaffStatu");
                 });
 
             modelBuilder.Entity("PursueOfStaffAreaNetCore7.EntityLayer.Entities.User", b =>
@@ -535,6 +615,11 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Migrations
             modelBuilder.Entity("PursueOfStaffAreaNetCore7.EntityLayer.Entities.Area", b =>
                 {
                     b.Navigation("DutyAssigns");
+                });
+
+            modelBuilder.Entity("PursueOfStaffAreaNetCore7.EntityLayer.Entities.Degree", b =>
+                {
+                    b.Navigation("Staffs");
                 });
 
             modelBuilder.Entity("PursueOfStaffAreaNetCore7.EntityLayer.Entities.Department", b =>
@@ -564,6 +649,11 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Migrations
                     b.Navigation("Areas");
 
                     b.Navigation("DutyAssigns");
+                });
+
+            modelBuilder.Entity("PursueOfStaffAreaNetCore7.EntityLayer.Entities.StaffStatu", b =>
+                {
+                    b.Navigation("Staffs");
                 });
 
             modelBuilder.Entity("PursueOfStaffAreaNetCore7.EntityLayer.Entities.User", b =>

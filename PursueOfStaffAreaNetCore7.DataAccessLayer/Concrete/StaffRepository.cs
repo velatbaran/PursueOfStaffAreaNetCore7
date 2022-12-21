@@ -16,7 +16,7 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Concrete
 
         public async Task<List<Staff>> GetStaffsWithAllEntities()
         {
-            return await _databaseContext.Staffs.Include(x=>x.EducationState).Include(x=>x.Department).Include(x=>x.Profession).Include(x=>x.Duty).ToListAsync();
+            return await _databaseContext.Staffs.Include(x=>x.EducationState).Include(x=>x.Department).Include(x=>x.Profession).Include(x=>x.Duty).Include(x=>x.Degree).Include(x=>x.StaffStatu).ToListAsync();
         }
     }
 }

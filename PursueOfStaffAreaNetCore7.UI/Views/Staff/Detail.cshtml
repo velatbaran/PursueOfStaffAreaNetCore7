@@ -1,0 +1,167 @@
+﻿@model Staff
+
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<div class="row mb-3">
+    <div class="col">
+        <h1 class="display-6">@ViewData["Title"]</h1>
+        <hr />
+    </div>
+</div>
+
+<div>
+    <dl class="row mb-3">
+        <div class="col-md-4 offset-2">
+            <img src="~/uploads/img/staffs/@Model.ProfileImage" class="img-thumbnail rounded-circle" width="256" />
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.TC)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.TC)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.FullName)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.FullName)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.BornDate)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.BornDate)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Phone)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Phone)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.StartDate)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.ExitDate)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.ExitDate)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.TotalWorkingYear)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.TotalWorkingYear)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.TotalAllowDay)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.TotalAllowDay)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.UsedDay)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.UsedDay)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.RemainDay)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.RemainDay)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.IsStateWorking)
+                </dt>
+                <dd class="col-sm-6">
+                    @if (Model.IsStateWorking)
+                    {
+                        <i class="fa fa-check text-success"></i>
+                    }
+                    else
+                    {
+                        <i class="fa fa-times text-danger"></i>
+                    }
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.IsDutyAssigned)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.IsDutyAssigned)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Department)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Department.Name)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.EducationState)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.EducationState.Name)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Profession)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Profession.Name)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Duty)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Duty.Name)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Degree)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Degree.Name)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.StaffStatu)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.StaffStatu.Name)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.CreatedDate)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.CreatedDate)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.ModifiedDate)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.ModifiedDate)
+                </dd>
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.RegisteringUser)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.RegisteringUser)
+                </dd>
+            </div>
+        </div>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning text-white" title="Edit"><i class="fa fa-edit me-2"></i>Edit</a>
+    <a asp-action="List" class="btn btn-secondary" title="Back to List"><i class="fa-solid fa-angles-left me-2"></i>Back to List</a>
+</div>

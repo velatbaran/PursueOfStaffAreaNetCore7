@@ -13,6 +13,7 @@ namespace PursueOfStaffAreaNetCore7.BusinnessLayer.Abstract
         Task UpdateAsync(T entity);
         Task RemoveAsync(T entity);
         Task<T> GetByIdAsync(int id);
+        Task<T> FindAsync(Expression<Func<T, bool>> filter = null);
         Task<IEnumerable<T>> GetAllAsync();
         IQueryable<T> Where(Expression<Func<T, bool>> filter = null);
         Task<bool> AnyAsync(Expression<Func<T, bool>> filter = null);

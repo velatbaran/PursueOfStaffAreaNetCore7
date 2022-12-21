@@ -23,10 +23,8 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.DataContext
         public DbSet<Duty> Dutys { get; set; }
         public DbSet<DutyAssign> DutyAssigns { get; set; }
         public DbSet<EducationState> EducationStates { get; set; }
+        public DbSet<Degree> Degrees { get; set; }
+        public DbSet<StaffStatu> StaffStatus { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-
-        }
     }
 }

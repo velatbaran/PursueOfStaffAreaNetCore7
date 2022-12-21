@@ -36,8 +36,8 @@
                         <th>Department</th>
                         <th>Profession</th>
                         <th>Duty</th>
-                        <th>BornDate</th>
-                        <th>Phone</th>
+                        <th>Degree</th>
+                        <th>StaffStatu</th>
                         <th>StartDate</th>
                         <th>Description</th>
                         <th>IsStateWorking</th>
@@ -56,8 +56,8 @@
                             <td>@item.Department.Name</td>
                             <td>@item.Profession.Name</td>
                             <td>@item.Duty.Name</td>
-                            <td>@item.BornDate.ToShortDateString()</td>
-                            <td>@item.Phone</td>
+                            <td>@item.Degree.Name</td>
+                            <td>@item.StaffStatu.Name</td>
                             <td>@item.StartDate.ToShortDateString()</td>
                             <td>@item.Description</td>
                             <td class="text-center">
@@ -75,6 +75,7 @@
                                 <a asp-action="Remove" asp-route-id="@item.Id"
                            onclick="return confirm('Are you sure want to remove this staff : @item.FullName ?')" asp-route-id="@item.Id"
                            class="btn btn-danger btn-sm" title="Remove"><i class="fa fa-trash me-2"></i>Remove</a>
+                                <a asp-action="Detail" asp-route-id="@item.Id" class="btn btn-secondary btn-sm text-white" title="Detail"><i class="fa-brands fa-searchengin me-2"></i>Detail</a>
                             </td>
                         </tr>
                     }

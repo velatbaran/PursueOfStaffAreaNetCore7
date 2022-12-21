@@ -13,6 +13,7 @@ namespace PursueOfStaffAreaNetCore7.DataAccessLayer.Abstract
         void Update(T entity);
         void Remove(T entity);
         Task<T> GetByIdAsync(int id);
+        Task<T> FindAsync(Expression<Func<T, bool>> filter = null);
         IQueryable<T> GetAll();
         IQueryable<T> Where(Expression<Func<T, bool>> filter = null);
         Task<bool> AnyAsync(Expression<Func<T, bool>> filter = null);
