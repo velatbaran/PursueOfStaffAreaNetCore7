@@ -36,6 +36,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IDutyAssignRepository, DutyAssignRepository>();
 builder.Services.AddScoped<IDutyAssignService, DutyAssginService>();
+builder.Services.AddScoped<IAllowRequestRepository, AllowRequestRepository>();
+builder.Services.AddScoped<IAllowRequestService, AllowRequestService>();
 builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 builder.Services.AddScoped<IHasher,Hasher>();
 

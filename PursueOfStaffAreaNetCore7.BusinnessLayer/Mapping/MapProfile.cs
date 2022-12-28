@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PursueOfStaffAreaNetCore7.EntityLayer.Entities;
 using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Admin;
+using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Allow;
 using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.AllowType;
 using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Area;
 using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Degree;
@@ -66,6 +67,11 @@ namespace PursueOfStaffAreaNetCore7.BusinnessLayer.Mapping
             //CreateMap<User, EditEmailViewModel>().ReverseMap();
             //CreateMap<User, EditRoleViewModel>().ReverseMap();
             //CreateMap<User, EditPasswordViewModel>().ReverseMap();
+
+            // allowrequest
+            CreateMap<AllowRequest, ListAllowRequestViewModel>().ReverseMap();
+            CreateMap<AllowRequest, AddAllowRequestViewModel>().ReverseMap();
+            CreateMap<AllowRequest, EditAllowRequestViewModel>().ReverseMap();
         } 
     }
 }

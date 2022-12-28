@@ -8,6 +8,8 @@ using PursueOfStaffAreaNetCore7.BusinnessLayer.Concrete;
 using PursueOfStaffAreaNetCore7.BusinnessLayer.Exceptions;
 using PursueOfStaffAreaNetCore7.EntityLayer.Entities;
 using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Area;
+using PursueOfStaffAreaNetCore7.EntityLayer.ViewModels.Staff;
+using System.Security.Claims;
 
 namespace PursueOfStaffAreaNetCore7.UI.Controllers
 {
@@ -29,22 +31,20 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
             return View(await _areaService.GetAreasWithStaff());
         }
 
-        private async Task DropDownListStaffLoader()
-        {
-            List<SelectListItem> staffList = (from s in await _staffService.GetStaffsWithAllEntities()
-                                              select new SelectListItem
-                                              {
-                                                  Text = s.FullName + " " + s.TC,
-                                                  Value = s.Id.ToString()
-                                              }).ToList();
-
-            ViewBag.Staffs = staffList;
-        }
-
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            List<SelectListItem> staffList = (from s in await _staffService.GetStaffsWithAllEntities()
+            List<ListStaffViewModel> listStaffViewModel = await _staffService.GetStaffsWithAllEntities();
+            List<ListStaffViewModel> _listStaffViewModel = null; ;
+            if (User.FindFirstValue(ClaimTypes.Role) == "admin")
+            {
+                _listStaffViewModel = listStaffViewModel;
+            }
+            else
+            {
+                _listStaffViewModel = listStaffViewModel.Where(x => x.Department.Name == User.FindFirstValue(ClaimTypes.Actor)).ToList();
+            }
+            List<SelectListItem> staffList = (from s in _listStaffViewModel
                                               select new SelectListItem
                                               {
                                                   Text = s.FullName + " " + s.TC,
@@ -65,7 +65,18 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
                 TempData["resultArea"] = "Area created successfully";
                 return RedirectToAction(nameof(List));
             }
-            List<SelectListItem> staffList = (from s in await _staffService.GetStaffsWithAllEntities()
+
+            List<ListStaffViewModel> listStaffViewModel = await _staffService.GetStaffsWithAllEntities();
+            List<ListStaffViewModel> _listStaffViewModel = null; ;
+            if (User.FindFirstValue(ClaimTypes.Role) == "admin")
+            {
+                _listStaffViewModel = listStaffViewModel;
+            }
+            else
+            {
+                _listStaffViewModel = listStaffViewModel.Where(x => x.Department.Name == User.FindFirstValue(ClaimTypes.Actor)).ToList();
+            }
+            List<SelectListItem> staffList = (from s in _listStaffViewModel
                                               select new SelectListItem
                                               {
                                                   Text = s.FullName + " " + s.TC,
@@ -83,7 +94,18 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
             {
                 throw new NotFoundException($"{id} nolu area not found");
             }
-            List<SelectListItem> staffList = (from s in await _staffService.GetStaffsWithAllEntities()
+
+            List<ListStaffViewModel> listStaffViewModel = await _staffService.GetStaffsWithAllEntities();
+            List<ListStaffViewModel> _listStaffViewModel = null; ;
+            if (User.FindFirstValue(ClaimTypes.Role) == "admin")
+            {
+                _listStaffViewModel = listStaffViewModel;
+            }
+            else
+            {
+                _listStaffViewModel = listStaffViewModel.Where(x => x.Department.Name == User.FindFirstValue(ClaimTypes.Actor)).ToList();
+            }
+            List<SelectListItem> staffList = (from s in _listStaffViewModel
                                               select new SelectListItem
                                               {
                                                   Text = s.FullName + " " + s.TC,
@@ -104,7 +126,18 @@ namespace PursueOfStaffAreaNetCore7.UI.Controllers
                 TempData["resultArea"] = "Area updated successfully";
                 return RedirectToAction(nameof(List));
             }
-            List<SelectListItem> staffList = (from s in await _staffService.GetStaffsWithAllEntities()
+
+            List<ListStaffViewModel> listStaffViewModel = await _staffService.GetStaffsWithAllEntities();
+            List<ListStaffViewModel> _listStaffViewModel = null; ;
+            if (User.FindFirstValue(ClaimTypes.Role) == "admin")
+            {
+                _listStaffViewModel = listStaffViewModel;
+            }
+            else
+            {
+                _listStaffViewModel = listStaffViewModel.Where(x => x.Department.Name == User.FindFirstValue(ClaimTypes.Actor)).ToList();
+            }
+            List<SelectListItem> staffList = (from s in _listStaffViewModel
                                               select new SelectListItem
                                               {
                                                   Text = s.FullName + " " + s.TC,
